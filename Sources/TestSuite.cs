@@ -6,7 +6,7 @@ namespace testify
 {
     class TestSuite
     {
-        public TaskCompletionSource<bool> CompletionToken;
+        private TaskCompletionSource<bool> _completionToken;
 
         private List<List<(String, ConsoleColor)>> _outputs;
 
@@ -21,13 +21,14 @@ namespace testify
 
         private DateTime _startTime;
 
+        public int ExitCode => _failingCount > 0 ? 1 : 0;
 
         public TestSuite() : this(Tools.Assert, Tools.Trace) { }
 
         public TestSuite(Action<object, object> assert, Action<string, ConsoleColor> trace)
         {
             _startTime = DateTime.Now;
-            CompletionToken = new TaskCompletionSource<bool>();
+            _completionToken = new TaskCompletionSource<bool>();
             _outputs = new List<List<(String, ConsoleColor)>>();
             _assert = assert;
             _trace = trace;
@@ -63,7 +64,7 @@ namespace testify
                     _trace("> " + _notImplementedCount + " NotImplemented", ConsoleColor.Yellow);
                 var endTime = DateTime.Now;
                 _trace("> Time elapsed: " + (endTime - _startTime).Milliseconds + "ms", default);
-                CompletionToken.SetResult(true);
+                _completionToken.SetResult(true);
             }
         }
 
@@ -99,7 +100,7 @@ namespace testify
             output.Add((testDescription, ConsoleColor.DarkBlue));
         }
 
-        public void Wait() => CompletionToken.Task.Wait();
+        public void Wait() => _completionToken.Task.Wait();
 
     }
 }

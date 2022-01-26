@@ -1,0 +1,7 @@
+# Default line ending is automatic for binaries
+* text=auto
+
+## Unity ##
+*.cs diff=csharp text eol=lf
+*.json text eol=lf
+.gitattributes text eol=lf
