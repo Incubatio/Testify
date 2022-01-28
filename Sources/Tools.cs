@@ -50,9 +50,8 @@ namespace testify
             // running and clearing the first hides the performance hit.
             test.Run();
             test.Result = new TestResult();
-            
             test.Run();
-            test.Task.Wait();
+            await test.Task;
             Tools.PrintTestResult(test.Result);
             return test.ExitCode;
         }
