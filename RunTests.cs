@@ -16,7 +16,7 @@ class RunTests
     static async void RunTestsAsync()
     {
         // run Single Test
-        //_exitCode = await Tools.RunTestAsync(new ExamplePassingTests());
+        _exitCode = Tools.RunTest(new PassingExampleTestSuite());
         
         // run all test that inherits ATestSuite --> uses reflection
         _exitCode = await Tools.RunTestsAsync();

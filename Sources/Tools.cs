@@ -44,29 +44,28 @@ namespace testify
             return objects;
         }
 
-        public static async Task<int> RunTestAsync(ATestSuite test)
+        public static int RunTest(ATestSuite test)
         {
             // first test has a performance hit probably related to injection of function and generation of temp object
             // running and clearing the first hides the performance hit.
             test.Run();
             test.Result = new TestResult();
             test.Run();
-            await test.Task;
             Tools.PrintTestResult(test.Result);
             return test.ExitCode;
         }
         public static async Task<int> RunTestsAsync()
         {
             var tests = GetEnumerableOfType<ATestSuite>().ToList();
-            
+
             // first test has a performance hit probably related to injection of function and generation of temp object
             // running and clearing the first hides the performance hit.
             tests[0].Run();
             tests[0].Result = new TestResult();
-            
-            tests.ForEach( t => t.Run());
 
-            var tasks = tests.Select(t => t.Task);
+            var tasks = new List<Task>();
+            tests.ForEach( t => tasks.Add(Task.Run(t.Run)));
+
             await Task.WhenAll(tasks);
             var result = new TestResult();
             foreach (var test in tests)
