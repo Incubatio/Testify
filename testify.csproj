@@ -2,7 +2,19 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>incubatio.testify</PackageId>
+        <Authors>incubatio</Authors>
+        <Company>incubatio</Company>
+        <Description>BDD and unit testing library</Description>
+        <PackageLicenseExpression>GPL-2.0-only</PackageLicenseExpression>
+        <PackageTags>Unit, Test, Testing, BDD, TDD, Automated</PackageTags>
+        <RepositoryUrl>https://github.com/Incubatio/Testify</RepositoryUrl>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="6.0.3" />
+    </ItemGroup>
 
 </Project>

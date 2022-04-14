@@ -3,5 +3,6 @@
 
 ## Unity ##
 *.cs diff=csharp text eol=lf
+*.csproj diff=csharp text eol=lf
 *.json text eol=lf
 .gitattributes text eol=lf
